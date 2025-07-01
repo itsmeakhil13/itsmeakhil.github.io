@@ -3,137 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cybersecurity Portfolio</title>
+    <title>Akhil Sabu - Cybersecurity Portfolio (Modern Theme)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons (Social Media, Certifications) -->
+    <!-- Google Fonts - Poppins (for modern feel) and Open Sans (for readability) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Custom Tailwind Colors */
+        .bg-primary-blue { background-color: #3b82f6; } /* Tailwind blue-500 */
+        .text-primary-blue { color: #3b82f6; }
+        .hover\:bg-primary-blue-dark { background-color: #2563eb; } /* Tailwind blue-600 */
+        .bg-accent-green { background-color: #10b981; } /* Tailwind emerald-500 */
+        .text-accent-green { color: #10b981; }
+        .bg-light-gray-bg { background-color: #f9fafb; } /* Lightest gray */
+        .bg-medium-gray-bg { background-color: #f3f4f6; } /* Slightly darker gray */
+        .text-dark-gray { color: #374151; } /* Dark gray for main text */
+        .text-light-text { color: #6b7280; } /* Lighter gray for secondary text */
+
+        /* Base styles */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Slightly darker light gray */
-            color: #334155; /* Dark slate */
-            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
-            opacity: 0; /* Initial opacity for fade-in effect */
-            transition: opacity 1s ease-in;
-            /* Animated subtle background gradient */
-            background-image: radial-gradient(circle at top left, #e2e8f0, transparent 50%),
-                              radial-gradient(circle at bottom right, #e0f2fe, transparent 50%);
-            background-size: 200% 200%;
-            animation: background-pan 20s linear infinite alternate;
-            transition: background-position 0.5s ease-out; /* For mouse-over background effect */
+            font-family: 'Open Sans', sans-serif;
+            background-color: #ffffff; /* Clean white background */
+            color: #374151; /* Dark gray text */
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
         body.loaded {
             opacity: 1;
         }
-        @keyframes background-pan {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
 
+        /* Section Titles */
         .section-title {
+            font-family: 'Poppins', sans-serif;
             position: relative;
             display: inline-block;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2.5rem; /* Increased margin */
-            font-size: 2.8rem; /* Slightly larger font for titles */
-            font-weight: 800; /* Extra bold */
-            color: #1a202c; /* Very dark slate */
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.15); /* More prominent text shadow */
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Added transition for hover */
+            padding-bottom: 0.75rem;
+            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1f2937; /* Darker text for titles */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            letter-spacing: -0.02em; /* Tighter spacing */
         }
         .section-title::after {
             content: '';
             position: absolute;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             bottom: 0;
-            width: 60%; /* Wider underline */
-            height: 5px; /* Thicker underline */
-            background-color: #3b82f6; /* Blue accent */
-            border-radius: 9999px; /* Fully rounded */
-            transform: scaleX(0); /* Initial state for animation */
-            transform-origin: left;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Smooth animation */
+            width: 80px; /* Short and centered underline */
+            height: 4px;
+            background-color: #3b82f6; /* Primary blue accent */
+            border-radius: 9999px;
+            opacity: 0;
+            transition: width 0.6s ease-out, opacity 0.6s ease-out;
         }
         .section-title.is-visible::after {
-            transform: scaleX(1); /* Animate to full width */
-        }
-        .section-title:hover {
-            transform: translateY(-3px) scale(1.01); /* Subtle lift and scale on hover */
-            color: #2563eb; /* Darker blue on hover */
-        }
-
-        .card {
-            background-color: #ffffff;
-            border-radius: 1.25rem; /* Even more rounded corners */
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 6px 10px -4px rgba(0, 0, 0, 0.08); /* Stronger soft shadow */
-            padding: 2.5rem; /* More padding */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
-            border: 1px solid #e2e8f0; /* Subtle border */
-            position: relative; /* For pseudo-elements */
-            overflow: hidden; /* For ripple effect */
-        }
-        .card:hover {
-            transform: translateY(-10px); /* More pronounced lift on hover */
-            box-shadow: 0 25px 40px -8px rgba(0, 0, 0, 0.2), 0 10px 15px -6px rgba(0, 0, 0, 0.1), 0 0 30px rgba(59, 130, 246, 0.4); /* Stronger shadow + blue glow */
-            border-color: #3b82f6; /* Blue border on hover */
-        }
-        /* Card ripple effect */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(59, 130, 246, 0.1); /* Light blue ripple */
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: width 0.5s ease-out, height 0.5s ease-out, opacity 0.5s ease-out;
-            z-index: 0;
-        }
-        .card:hover::before {
-            width: 200%; /* Expand ripple */
-            height: 200%;
+            width: 120px; /* Expand on visible */
             opacity: 1;
         }
-        .card > *:not(.card::before) {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.2s ease-out; /* Added for content lift */
+
+        /* Card Styling */
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem; /* Slightly more rounded */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04); /* Softer shadow */
+            padding: 2.5rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e5e7eb; /* Light border */
         }
-        .card:hover > *:not(.card::before) {
-            transform: translateY(-2px); /* Lift content slightly */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 0 20px rgba(59, 130, 246, 0.2); /* Subtle blue glow */
         }
 
+        /* Primary Button */
         .btn-primary {
-            background-color: #3b82f6; /* Blue */
+            background-color: #3b82f6;
             color: #ffffff;
-            padding: 0.85rem 1.75rem; /* Larger padding */
-            border-radius: 0.85rem; /* Rounded */
+            padding: 0.9rem 2rem;
+            border-radius: 0.75rem;
             transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 5px 12px rgba(59, 130, 246, 0.3);
             font-weight: 600;
+            letter-spacing: 0.02em;
             position: relative;
             overflow: hidden;
             z-index: 1;
         }
         .btn-primary:hover {
-            background-color: #2563eb; /* Darker blue on hover */
-            transform: translateY(-3px); /* Slight lift */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 0 25px rgba(59, 130, 246, 0.6); /* Enhanced shadow + glow */
+            background-color: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(59, 130, 246, 0.4);
         }
         .btn-primary::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.3); /* White ripple */
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             opacity: 0;
             transform: translate(-50%, -50%);
@@ -141,52 +114,55 @@
             z-index: -1;
         }
         .btn-primary:hover::after {
-            width: 200px;
-            height: 200px;
+            width: 200%;
+            height: 200%;
             opacity: 1;
         }
 
+        /* Navigation Links */
         .nav-link {
-            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out, padding 0.2s ease-in-out;
+            font-family: 'Poppins', sans-serif;
+            color: #4b5563; /* Darker gray for links */
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
             font-weight: 500;
             position: relative;
-            padding: 0.5rem 0.75rem; /* Added padding */
+            padding: 0.5rem 0.75rem;
         }
         .nav-link::after {
             content: '';
             position: absolute;
             left: 0;
-            bottom: -5px; /* Position below text */
+            bottom: -5px;
             width: 0;
             height: 2px;
-            background-color: #3b82f6;
-            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1); /* More dynamic transition */
+            background-color: #10b981; /* Accent green */
+            transition: width 0.3s ease-out;
         }
         .nav-link:hover {
-            color: #3b82f6; /* Blue on hover */
-            transform: translateY(-2px); /* Slight lift */
-            text-shadow: 0 0 5px rgba(59, 130, 246, 0.5); /* Subtle glow */
+            color: #10b981; /* Accent green on hover */
+            transform: translateY(-2px);
         }
         .nav-link:hover::after {
-            width: 100%; /* Expand underline */
+            width: 100%;
         }
 
-        /* Header backdrop filter for blur */
+        /* Header */
         header {
-            backdrop-filter: blur(8px); /* Apply blur effect */
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
             transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-bottom: 1px solid #e5e7eb;
         }
         .header-scrolled {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Add shadow when scrolled */
-            background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque when scrolled */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background-color: rgba(255, 255, 255, 0.98);
         }
 
-        /* Hero Section Background Animation */
+        /* Hero Section */
         #hero {
+            background: linear-gradient(135deg, #e0f2fe, #f0f9ff); /* Soft blue gradient */
             position: relative;
             overflow: hidden;
-            background: linear-gradient(45deg, #1a202c, #2d3748); /* Darker, more serious gradient */
         }
         #hero::before {
             content: '';
@@ -195,92 +171,30 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%232a303c" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>') repeat;
-            opacity: 0.2; /* Subtle grid overlay */
+            background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="2" fill="%23dbeafe"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"/></svg>') repeat;
+            opacity: 0.4; /* Subtle dots pattern */
             z-index: 0;
         }
-        .scanline-effect {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%);
-            background-size: 100% 4px;
-            animation: scanline 8s linear infinite;
-            z-index: 0;
-            pointer-events: none;
-        }
-        @keyframes scanline {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 100%; }
-        }
 
-        #hero > div { /* Target content inside hero to be above pseudo-element */
-            position: relative;
-            z-index: 1;
-            /* Add a subtle shadow to hero content */
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        /* Hero Text/Button Animations */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        /* Keyframe Animations for Hero Section Text/Button */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-40px); } /* More dramatic */
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); } /* More dramatic */
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.7); } /* More dramatic */
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .animate-fade-in-down {
-            animation: fadeInDown 1.2s ease-out forwards;
-        }
-        .animate-fade-in-up {
-            animation: fadeInUp 1.4s ease-out forwards;
-            animation-delay: 0.5s;
-        }
-        .animate-scale-in {
-            animation: scaleIn 1.4s ease-out forwards;
-            animation-delay: 1s;
-        }
-
-        /* Typing Effect for Tagline */
-        .typing-effect {
-            overflow: hidden; /* Ensures the text is hidden until typed */
-            white-space: nowrap; /* Keeps text on a single line */
-            margin: 0 auto; /* Centers the text */
-            letter-spacing: .15em; /* Adjust as needed */
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-            width: 0; /* Start with zero width */
-            border-right: .15em solid yellow; /* Initial cursor */
-        }
-        /* The typing animation */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        /* The typewriter cursor effect */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: yellow; } /* Cursor color */
-        }
+        .animate-hero-text { animation: fadeInScale 1.2s ease-out forwards; }
+        .animate-hero-button { animation: fadeInScale 1.2s ease-out forwards; animation-delay: 0.4s; }
 
         /* Scroll Reveal Animations */
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(80px); /* Increased translate distance */
-            transition: opacity 0.9s ease-out, transform 0.9s ease-out; /* Slightly longer transition */
+            transform: translateY(60px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .animate-on-scroll.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        /* Staggered delays for grid items */
+        /* Staggered delays */
         .animate-on-scroll.stagger-1 { transition-delay: 0.1s; }
         .animate-on-scroll.stagger-2 { transition-delay: 0.2s; }
         .animate-on-scroll.stagger-3 { transition-delay: 0.3s; }
@@ -296,12 +210,6 @@
         .animate-on-scroll.stagger-13 { transition-delay: 1.3s; }
         .animate-on-scroll.stagger-14 { transition-delay: 1.4s; }
         .animate-on-scroll.stagger-15 { transition-delay: 1.5s; }
-        .animate-on-scroll.stagger-16 { transition-delay: 1.6s; }
-        .animate-on-scroll.stagger-17 { transition-delay: 1.7s; }
-        .animate-on-scroll.stagger-18 { transition-delay: 1.8s; }
-        .animate-on-scroll.stagger-19 { transition-delay: 1.9s; }
-        .animate-on-scroll.stagger-20 { transition-delay: 2.0s; }
-        .animate-on-scroll.stagger-21 { transition-delay: 2.1s; }
 
 
         /* Image Hover Effect */
@@ -309,8 +217,8 @@
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
         .project-image:hover, .profile-image:hover {
-            transform: scale(1.05); /* More pronounced zoom */
-            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+            transform: scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         /* Skill Card Icon Styling */
@@ -318,47 +226,49 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 4.5rem; /* Slightly larger icon */
-            height: 4.5rem;
-            background-color: #dbeafe; /* Lighter blue */
+            width: 4rem;
+            height: 4rem;
+            background-color: #e0f2fe; /* Light blue */
             border-radius: 50%;
-            margin-bottom: 1.25rem; /* More margin */
-            color: #2563eb; /* Darker blue icon color */
-            font-size: 2.2rem; /* Larger icon font */
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Stronger shadow */
-            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+            margin-bottom: 1rem;
+            color: #3b82f6; /* Primary blue */
+            font-size: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, color 0.3s ease-in-out;
         }
         .skill-icon:hover {
-            background-color: #bfdbfe; /* Even lighter blue on hover */
-            transform: rotate(10deg) scale(1.1); /* Rotate and scale on hover */
+            background-color: #3b82f6; /* Primary blue on hover */
+            color: #ffffff; /* White icon on hover */
+            transform: rotate(5deg) scale(1.1);
         }
 
         /* Social Icon Hover */
         .social-icon {
+            color: #6b7280; /* Light text default */
             transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
         }
         .social-icon:hover {
-            transform: translateY(-5px) scale(1.2); /* More pronounced lift and scale */
-            color: #3b82f6; /* Change color on hover */
+            transform: translateY(-4px) scale(1.1);
+            color: #3b82f6; /* Primary blue on hover */
         }
 
         /* Back to Top Button */
         #back-to-top {
             position: fixed;
-            bottom: 2.5rem; /* Slightly higher */
-            right: 2.5rem; /* Slightly more to the right */
-            background-color: #3b82f6;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #10b981; /* Accent green */
             color: white;
-            padding: 1.1rem; /* Larger padding */
+            padding: 1rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.7rem; /* Larger icon */
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* Stronger shadow */
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.3s;
             opacity: 0;
-            transform: translateY(30px); /* More pronounced initial state */
+            transform: translateY(20px);
             cursor: pointer;
             z-index: 1000;
         }
@@ -366,13 +276,17 @@
             opacity: 1;
             transform: translateY(0);
         }
+        #back-to-top:hover {
+            background-color: #059669; /* Darker green on hover */
+            transform: translateY(-2px) scale(1.05);
+        }
 
-        /* Hamburger Icon Animation */
+        /* Mobile Menu Button (Hamburger) */
         .hamburger-icon span {
             display: block;
             width: 25px;
             height: 3px;
-            background-color: #334155;
+            background-color: #4b5563; /* Dark gray lines */
             margin: 5px 0;
             transition: all 0.3s ease-in-out;
         }
@@ -386,51 +300,64 @@
             transform: translateY(-8px) rotate(-45deg);
         }
 
-        /* Specific styles for Certification Cards to make them smaller and add hover */
+        /* Specific styles for Certification Cards */
         .certification-card {
-            padding: 1.25rem; /* Further reduced padding */
+            padding: 1rem; /* Slightly smaller padding */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background-color: #ffffff;
+            color: #374151;
+            border: 1px solid #e5e7eb;
         }
         .certification-card:hover {
-            transform: translateY(-5px) scale(1.02); /* Subtle lift and slight scale on hover */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15), 0 0 15px rgba(59, 130, 246, 0.3); /* Softer shadow with blue glow */
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1), 0 0 10px rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
         }
         .certification-card .skill-icon {
-            width: 3rem; /* Even smaller icon size */
-            height: 3rem;
-            font-size: 1.6rem; /* Even smaller icon font size */
-            margin-bottom: 0.5rem; /* Reduced margin */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Lighter shadow for icons */
+            width: 2.8rem;
+            height: 2.8rem;
+            font-size: 1.4rem;
+            margin-bottom: 0.4rem;
+            background-color: #e0f2fe;
+            color: #3b82f6;
+            box-shadow: none; /* No shadow for small icons */
+        }
+        .certification-card .skill-icon:hover {
+             background-color: #3b82f6;
+             color: #ffffff;
+             transform: scale(1.05); /* Less dramatic hover for smaller icons */
         }
         .certification-card h3 {
-            font-size: 1.25rem; /* Smaller title font */
-            margin-bottom: 0.25rem; /* Reduced margin */
-            line-height: 1.3; /* Adjust line height for better fit */
+            font-size: 1.1rem; /* Smaller title font */
+            margin-bottom: 0.15rem;
+            line-height: 1.2;
+            color: #1f2937;
+            font-family: 'Poppins', sans-serif;
         }
         .certification-card p {
-            font-size: 0.85rem; /* Even smaller text */
-            color: #64748b; /* Slightly lighter gray for company name */
+            font-size: 0.8rem; /* Smaller text */
+            color: #6b7280;
         }
     </style>
 </head>
 <body class="antialiased">
     <!-- Header/Navigation -->
-    <header class="bg-white shadow-sm py-4 fixed top-0 left-0 right-0 z-50">
+    <header class="shadow-sm py-4 fixed top-0 left-0 right-0 z-50">
         <nav class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
-            <div class="text-2xl font-bold text-gray-900">Akhil Sabu</div>
+            <div class="text-3xl font-bold text-gray-900 font-poppins">Akhil Sabu</div>
             <ul class="hidden md:flex space-x-8">
-                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900">About</a></li>
-                <li><a href="#experience" class="nav-link text-gray-600 hover:text-gray-900">Experience</a></li>
-                <li><a href="#skills" class="nav-link text-gray-600 hover:text-gray-900">Skills</a></li>
-                <li><a href="#certifications" class="nav-link text-gray-600 hover:text-gray-900">Certifications</a></li>
-                <li><a href="#achievements" class="nav-link text-gray-600 hover:text-gray-900">Achievements</a></li>
-                <li><a href="#projects" class="nav-link text-gray-600 hover:text-gray-900">Projects</a></li>
-                <li><a href="#contact" class="nav-link text-gray-600 hover:text-gray-900">Contact</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <!-- Mobile Menu Button (Hamburger) -->
             <button class="md:hidden text-gray-600 focus:outline-none" aria-label="Toggle navigation">
@@ -442,38 +369,38 @@
         <!-- Mobile Menu (Hidden by default) -->
         <div id="mobile-menu" class="md:hidden hidden bg-white py-2 shadow-md">
             <ul class="flex flex-col items-center space-y-4">
-                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">About</a></li>
-                <li><a href="#experience" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Experience</a></li>
-                <li><a href="#skills" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Skills</a></li>
-                <li><a href="#certifications" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Certifications</a></li>
-                <li><a href="#achievements" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Achievements</a></li>
-                <li><a href="#projects" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Contact</a></li>
+                <li><a href="#about" class="nav-link text-gray-700 block py-2" onclick="toggleMobileMenu()">About</a></li>
+                <li><a href="#experience" class="nav-link text-gray-700 block py-2" onclick="toggleMobileMenu()">Experience</a></li>
+                <li><a href="#skills" class="nav-link text-gray-700 block py-2" onclick="toggleMobileMenu()">Skills</a></li>
+                <li><a href="#certifications" class="nav-link text-gray-700 block py-2" onclick="toggleMobileMenu()">Certifications</a></li>
+                <li><a href="#achievements" class="nav-link text-gray-700 block py-2" onclick="toggleMobileMenu()">Achievements</a></li>
+                <li><a href="#projects" class="nav-link text-gray-700 block py-2" onclick="toggleMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative h-screen flex items-center justify-center text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white pt-16">
+    <section id="hero" class="relative h-screen flex items-center justify-center text-center text-gray-900 pt-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
-                Hi, I'm <span class="text-yellow-300">Akhil Sabu</span>
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 animate-hero-text font-poppins">
+                Hi, I'm <span class="text-primary-blue">Akhil Sabu</span>
             </h1>
-            <p class="text-lg sm:text-xl lg:text-2xl mb-8 animate-fade-in-up">
+            <p class="text-xl sm:text-2xl lg:text-3xl mb-8 animate-hero-text text-light-text max-w-3xl mx-auto">
                 A dedicated Cybersecurity Professional safeguarding digital assets.
             </p>
-            <a href="#projects" class="btn-primary inline-block text-lg animate-scale-in">View My Security Work</a>
+            <a href="#projects" class="btn-primary inline-block text-lg animate-hero-button">View My Security Work</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-gray-50">
+    <section id="about" class="py-20 bg-light-gray-bg">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">About Me</h2>
-            <div class="flex flex-col md:flex-row items-center md:space-x-8 animate-on-scroll">
+            <div class="flex flex-col md:flex-row items-center md:space-x-10 animate-on-scroll">
                 <div class="md:w-1/3 mb-8 md:mb-0">
-                    <img src="https://placehold.co/400x400/3b82f6/ffffff?text=Akhil+Sabu" alt="Akhil Sabu Photo" class="rounded-full w-48 h-48 mx-auto object-cover border-4 border-blue-300 shadow-lg profile-image">
+                    <img src="https://placehold.co/400x400/3b82f6/ffffff?text=Akhil+Sabu" alt="Akhil Sabu Photo" class="rounded-full w-48 h-48 mx-auto object-cover border-4 border-primary-blue shadow-lg profile-image">
                 </div>
-                <div class="md:w-2/3 text-lg leading-relaxed text-gray-700">
+                <div class="md:w-2/3 text-lg leading-relaxed text-dark-gray">
                     <p class="mb-4">
                         Hello! I'm Akhil Sabu, a passionate Cybersecurity Professional with a focus on **Vulnerability Management, Penetration Testing, and Security Operations (SecOps)**. I am committed to protecting digital infrastructures, identifying vulnerabilities, and implementing robust security measures to mitigate risks. My expertise spans across various security domains, ensuring comprehensive defense strategies.
                     </p>
@@ -486,16 +413,16 @@
     </section>
 
     <!-- Work Experience Section -->
-    <section id="experience" class="py-16 bg-white">
+    <section id="experience" class="py-20 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">Work Experience</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <!-- Experience Card 1: Ontinue India Private Limited -->
                 <div class="card animate-on-scroll stagger-1">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Cyber Security Engineer (Team Lead)</h3>
-                    <p class="text-xl font-semibold text-gray-700 mb-2">Ontinue India Private Limited</p>
-                    <p class="text-gray-600 mb-4">06/2021 - Present, New Delhi</p>
-                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2 font-poppins">Cyber Security Engineer (Team Lead)</h3>
+                    <p class="text-xl font-semibold text-primary-blue mb-2">Ontinue India Private Limited</p>
+                    <p class="text-light-text mb-4">06/2021 - Present, New Delhi</p>
+                    <ul class="list-disc list-inside text-dark-gray space-y-2">
                         <li>Lead the end-to-end vulnerability management process, encompassing the provision of vulnerability scanners, agent provision, and maintenance.</li>
                         <li>Conducted regular vulnerability assessments using Qualys, Defender for Endpoint identifying and prioritizing vulnerabilities based on risk and impact.</li>
                         <li>Developed and enforced vulnerability and patch management policies and procedures, ensuring alignment with industry standards and regulatory requirements.</li>
@@ -504,10 +431,10 @@
                 </div>
                 <!-- Experience Card 2: Accubits Technologies Private Ltd -->
                 <div class="card animate-on-scroll stagger-2">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Cyber Security Analyst</h3>
-                    <p class="text-xl font-semibold text-gray-700 mb-2">Accubits Technologies Private Ltd</p>
-                    <p class="text-gray-600 mb-4">06/2020 - 06/2021, Trivandrum, Kerala</p>
-                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2 font-poppins">Cyber Security Analyst</h3>
+                    <p class="text-xl font-semibold text-primary-blue mb-2">Accubits Technologies Private Ltd</p>
+                    <p class="text-light-text mb-4">06/2020 - 06/2021, Trivandrum, Kerala</p>
+                    <ul class="list-disc list-inside text-dark-gray space-y-2">
                         <li>Performed comprehensive security assessments, identifying and addressing vulnerabilities to enhance organizational security.</li>
                         <li>Work closely with the IT and security teams to ensure timely and effective remediation of identified vulnerabilities.</li>
                         <li>Designed and implemented security architecture for identity and access management solutions, addressing security gaps and enhancing system security.</li>
@@ -518,205 +445,205 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-16 bg-gray-50">
+    <section id="skills" class="py-20 bg-light-gray-bg">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">My Technical Skills</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Skill Card 1 -->
                 <div class="card text-center animate-on-scroll stagger-1">
                     <div class="skill-icon mx-auto"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Vulnerability Assessment & Penetration Testing</h3>
-                    <p class="text-gray-600">Identifying and exploiting security weaknesses in systems and applications.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Vulnerability Assessment & Penetration Testing</h3>
+                    <p class="text-light-text">Identifying and exploiting security weaknesses in systems and applications.</p>
                 </div>
                 <!-- Skill Card 2 -->
                 <div class="card text-center animate-on-scroll stagger-2">
                     <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Cloud Security</h3>
-                    <p class="text-gray-600">Securing cloud environments and infrastructure.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Cloud Security</h3>
+                    <p class="text-light-text">Securing cloud environments and infrastructure.</p>
                 </div>
                 <!-- Skill Card 3 -->
                 <div class="card text-center animate-on-scroll stagger-3">
                     <div class="skill-icon mx-auto"><i class="fas fa-globe"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Web Application Security</h3>
-                    <p class="text-gray-600">Protecting web applications from common vulnerabilities (OWASP Top 10).</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Web Application Security</h3>
+                    <p class="text-light-text">Protecting web applications from common vulnerabilities (OWASP Top 10).</p>
                 </div>
                 <!-- Skill Card 4 -->
                 <div class="card text-center animate-on-scroll stagger-4">
                     <div class="skill-icon mx-auto"><i class="fas fa-lightbulb"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">IoT Security</h3>
-                    <p class="text-gray-600">Securing Internet of Things devices and ecosystems.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">IoT Security</h3>
+                    <p class="text-light-text">Securing Internet of Things devices and ecosystems.</p>
                 </div>
                 <!-- Skill Card 5 -->
                 <div class="card text-center animate-on-scroll stagger-5">
                     <div class="skill-icon mx-auto"><i class="fas fa-bug"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Bug Hunting</h3>
-                    <p class="text-gray-600">Discovering and reporting vulnerabilities in software and systems.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Bug Hunting</h3>
+                    <p class="text-light-text">Discovering and reporting vulnerabilities in software and systems.</p>
                 </div>
                 <!-- Skill Card 6 -->
                 <div class="card text-center animate-on-scroll stagger-6">
                     <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Network Security</h3>
-                    <p class="text-gray-600">Designing and implementing secure network architectures.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Network Security</h3>
+                    <p class="text-light-text">Designing and implementing secure network architectures.</p>
                 </div>
                 <!-- Skill Card 7 -->
                 <div class="card text-center animate-on-scroll stagger-7">
                     <div class="skill-icon mx-auto"><i class="fas fa-mask"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Red Teaming</h3>
-                    <p class="text-gray-600">Simulating real-world attacks to test organizational defenses.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Red Teaming</h3>
+                    <p class="text-light-text">Simulating real-world attacks to test organizational defenses.</p>
                 </div>
                 <!-- Skill Card 8 -->
                 <div class="card text-center animate-on-scroll stagger-8">
                     <div class="skill-icon mx-auto"><i class="fas fa-clipboard-list"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Vulnerability Management</h3>
-                    <p class="text-gray-600">Systematic process of identifying, assessing, and remediating vulnerabilities.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Vulnerability Management</h3>
+                    <p class="text-light-text">Systematic process of identifying, assessing, and remediating vulnerabilities.</p>
                 </div>
                 <!-- Skill Card 9 -->
                 <div class="card text-center animate-on-scroll stagger-9">
                     <div class="skill-icon mx-auto"><i class="fas fa-desktop"></i></div>
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Endpoint Security</h3>
-                    <p class="text-gray-600">Protecting end-user devices from cyber threats.</p>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900 font-poppins">Endpoint Security</h3>
+                    <p class="text-light-text">Protecting end-user devices from cyber threats.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Certifications Section (New) -->
-    <section id="certifications" class="py-20 bg-gray-100">
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-20 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">Certifications</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"> <!-- Adjusted gap and added xl:grid-cols-5 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 <!-- Certification Card 1 -->
                 <div class="card text-center animate-on-scroll stagger-1 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
-                    <h3 class="font-semibold text-gray-800">Azure Network Security</h3>
-                    <p class="text-gray-600">Microsoft</p>
+                    <h3 class="font-semibold font-poppins">Azure Network Security</h3>
+                    <p class="text-light-text">Microsoft</p>
                 </div>
                 <!-- Certification Card 2 -->
                 <div class="card text-center animate-on-scroll stagger-2 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="font-semibold text-gray-800">Microsoft Defender XDR</h3>
-                    <p class="text-gray-600">Microsoft</p>
+                    <h3 class="font-semibold font-poppins">Microsoft Defender XDR</h3>
+                    <p class="text-light-text">Microsoft</p>
                 </div>
                 <!-- Certification Card 3 -->
                 <div class="card text-center animate-on-scroll stagger-3 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-robot"></i></div>
-                    <h3 class="font-semibold text-gray-800">Microsoft Copilot for Security</h3>
-                    <p class="text-gray-600">Microsoft</p>
+                    <h3 class="font-semibold font-poppins">Microsoft Copilot for Security</h3>
+                    <p class="text-light-text">Microsoft</p>
                 </div>
                 <!-- Certification Card 4 -->
                 <div class="card text-center animate-on-scroll stagger-4 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-desktop"></i></div>
-                    <h3 class="font-semibold text-gray-800">Microsoft Defender for Endpoint</h3>
-                    <p class="text-gray-600">Microsoft</p>
+                    <h3 class="font-semibold font-poppins">Microsoft Defender for Endpoint</h3>
+                    <p class="text-light-text">Microsoft</p>
                 </div>
                 <!-- Certification Card 5 -->
                 <div class="card text-center animate-on-scroll stagger-5 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-bug"></i></div>
-                    <h3 class="font-semibold text-gray-800">Microsoft Defender for Vulnerability Management</h3>
-                    <p class="text-gray-600">Microsoft</p>
+                    <h3 class="font-semibold font-poppins">Microsoft Defender for Vulnerability Management</h3>
+                    <p class="text-light-text">Microsoft</p>
                 </div>
                 <!-- Certification Card 6 -->
                 <div class="card text-center animate-on-scroll stagger-6 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div>
-                    <h3 class="font-semibold text-gray-800">Azure Fundamentals</h3>
-                    <p class="text-gray-600">Microsoft</p>
+                    <h3 class="font-semibold font-poppins">Azure Fundamentals</h3>
+                    <p class="text-light-text">Microsoft</p>
                 </div>
                 <!-- Certification Card 7 -->
                 <div class="card text-center animate-on-scroll stagger-7 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-code"></i></div>
-                    <h3 class="font-semibold text-gray-800">API Security Fundamentals</h3>
-                    <p class="text-gray-600">SANS Institute</p>
+                    <h3 class="font-semibold font-poppins">API Security Fundamentals</h3>
+                    <p class="text-light-text">SANS Institute</p>
                 </div>
                 <!-- Certification Card 8 -->
                 <div class="card text-center animate-on-scroll stagger-8 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-search"></i></div>
-                    <h3 class="font-semibold text-gray-800">Vulnerability Management Detection and Response (VMDR)</h3>
-                    <p class="text-gray-600">Qualys</p>
+                    <h3 class="font-semibold font-poppins">Vulnerability Management Detection and Response (VMDR)</h3>
+                    <p class="text-light-text">Qualys</p>
                 </div>
                 <!-- Certification Card 9 -->
                 <div class="card text-center animate-on-scroll stagger-9 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-mobile-alt"></i></div>
-                    <h3 class="font-semibold text-gray-800">eLearnSecurity Mobile Application Pen Tester (MAPT)</h3>
-                    <p class="text-gray-600">eLearnSecurity (INE)</p>
+                    <h3 class="font-semibold font-poppins">eLearnSecurity Mobile Application Pen Tester (MAPT)</h3>
+                    <p class="text-light-text">eLearnSecurity (INE)</p>
                 </div>
                 <!-- Certification Card 10 -->
                 <div class="card text-center animate-on-scroll stagger-10 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-laptop-code"></i></div>
-                    <h3 class="font-semibold text-gray-800">eLearnSecurity Junior Penetration Tester (JPT)</h3>
-                    <p class="text-gray-600">eLearnSecurity (INE)</p>
+                    <h3 class="font-semibold font-poppins">eLearnSecurity Junior Penetration Tester (JPT)</h3>
+                    <p class="text-light-text">eLearnSecurity (INE)</p>
                 </div>
                 <!-- Certification Card 11 -->
                 <div class="card text-center animate-on-scroll stagger-11 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-user-secret"></i></div>
-                    <h3 class="font-semibold text-gray-800">Certified Red Team Professional (CRTP)</h3>
-                    <p class="text-gray-600">AlterNet</p>
+                    <h3 class="font-semibold font-poppins">Certified Red Team Professional (CRTP)</h3>
+                    <p class="text-light-text">AlterNet</p>
                 </div>
                 <!-- Certification Card 12 -->
                 <div class="card text-center animate-on-scroll stagger-12 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-skull-crossbones"></i></div>
-                    <h3 class="font-semibold text-gray-800">Offensive Security Certified Professional (OSCP)</h3>
-                    <p class="text-gray-600">Offensive Security</p>
+                    <h3 class="font-semibold font-poppins">Offensive Security Certified Professional (OSCP)</h3>
+                    <p class="text-light-text">Offensive Security</p>
                 </div>
                 <!-- Certification Card 13 -->
                 <div class="card text-center animate-on-scroll stagger-13 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-user-shield"></i></div>
-                    <h3 class="font-semibold text-gray-800">Certified Ethical Hacker (CEH)</h3>
-                    <p class="text-gray-600">EC-Council</p>
+                    <h3 class="font-semibold font-poppins">Certified Ethical Hacker (CEH)</h3>
+                    <p class="text-light-text">EC-Council</p>
                 </div>
                 <!-- Certification Card 14 -->
                 <div class="card text-center animate-on-scroll stagger-14 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
-                    <h3 class="font-semibold text-gray-800">Cisco Certified Network Associate (CCNA)</h3>
-                    <p class="text-gray-600">Cisco</p>
+                    <h3 class="font-semibold font-poppins">Cisco Certified Network Associate (CCNA)</h3>
+                    <p class="text-light-text">Cisco</p>
                 </div>
                 <!-- Certification Card 15 -->
                 <div class="card text-center animate-on-scroll stagger-15 certification-card">
                     <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div>
-                    <h3 class="font-semibold text-gray-800">Amazon Web Services Cloud Practitioner</h3>
-                    <p class="text-gray-600">Amazon Web Services</p>
+                    <h3 class="font-semibold font-poppins">Amazon Web Services Cloud Practitioner</h3>
+                    <p class="text-light-text">Amazon Web Services</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Achievements Section -->
-    <section id="achievements" class="py-20 bg-white">
+    <section id="achievements" class="py-20 bg-light-gray-bg">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">Achievements</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Achievement Card 1: Google Hall of Fame -->
                 <div class="card text-center animate-on-scroll stagger-1">
                     <div class="skill-icon mx-auto"><i class="fab fa-google"></i></div>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Google Hall of Fame</h3>
-                    <p class="text-gray-600 mb-4">Recognized for contributions to Google's security.</p>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 font-poppins">Google Hall of Fame</h3>
+                    <p class="text-light-text mb-4">Recognized for contributions to Google's security.</p>
                     <a href="https://bughunter.withgoogle.com/profile/e099104e-982c-4938-8961-7a3e400419c2" target="_blank" class="btn-primary text-base inline-block">View Profile</a>
                 </div>
                 <!-- Achievement Card 2: Secured 50+ Companies -->
                 <div class="card text-center animate-on-scroll stagger-2">
                     <div class="skill-icon mx-auto"><i class="fas fa-building"></i></div>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Secured 50+ Companies</h3>
-                    <p class="text-gray-600">Successfully identified and mitigated security vulnerabilities for over 50 companies, significantly enhancing their digital defenses.</p>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 font-poppins">Secured 50+ Companies</h3>
+                    <p class="text-light-text">Successfully identified and mitigated security vulnerabilities for over 50 companies, significantly enhancing their digital defenses.</p>
                 </div>
                 <!-- Achievement Card 3: 30+ Hall of Fame Listings -->
                 <div class="card text-center animate-on-scroll stagger-3">
                     <div class="skill-icon mx-auto"><i class="fas fa-award"></i></div>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">30+ Hall of Fame Listings</h3>
-                    <p class="text-gray-600">Listed on 30+ Hall of Fame pages for various companies, acknowledging contributions in reporting security vulnerabilities.</p>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 font-poppins">30+ Hall of Fame Listings</h3>
+                    <p class="text-light-text">Listed on 30+ Hall of Fame pages for various companies, acknowledging contributions in reporting security vulnerabilities.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-gray-100">
+    <section id="projects" class="py-20 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">My Security Projects</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Project Card 1: Automated Vulnerability Scanner -->
                 <div class="card overflow-hidden animate-on-scroll stagger-1">
-                    <img src="https://placehold.co/600x400/a78bfa/ffffff?text=Vuln+Scanner" alt="Automated Vulnerability Scanner Project" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Automated Web Vulnerability Scanner</h3>
-                    <p class="text-gray-600 mb-5">Developed a Python-based tool to automate common web application vulnerability scans (XSS, SQLi, CSRF). Integrated with a reporting module to generate actionable security reports, significantly reducing manual analysis time.</p>
+                    <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Vuln+Scanner" alt="Automated Vulnerability Scanner Project" class="w-full h-52 object-cover rounded-t-lg mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 font-poppins">Automated Web Vulnerability Scanner</h3>
+                    <p class="text-light-text mb-5">Developed a Python-based tool to automate common web application vulnerability scans (XSS, SQLi, CSRF). Integrated with a reporting module to generate actionable security reports, significantly reducing manual analysis time.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Python</span>
                         <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Web Security</span>
@@ -727,9 +654,9 @@
                 </div>
                 <!-- Project Card 2: SIEM Log Analysis Dashboard -->
                 <div class="card overflow-hidden animate-on-scroll stagger-2">
-                    <img src="https://placehold.co/600x400/60a5fa/ffffff?text=SIEM+Dashboard" alt="SIEM Log Analysis Dashboard Project" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">SIEM Log Analysis Dashboard</h3>
-                    <p class="text-gray-600 mb-5">Designed and implemented an interactive dashboard using Splunk to visualize security logs and identify anomalous activities. Enabled real-time threat detection and improved incident response efficiency.</p>
+                    <img src="https://placehold.co/600x400/10b981/ffffff?text=SIEM+Dashboard" alt="SIEM Log Analysis Dashboard Project" class="w-full h-52 object-cover rounded-t-lg mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 font-poppins">SIEM Log Analysis Dashboard</h3>
+                    <p class="text-light-text mb-5">Designed and implemented an interactive dashboard using Splunk to visualize security logs and identify anomalous activities. Enabled real-time threat detection and improved incident response efficiency.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
                         <span class="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">Splunk</span>
                         <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">SecOps</span>
@@ -740,9 +667,9 @@
                 </div>
                 <!-- Project Card 3: Secure Cloud Configuration Audit Tool -->
                 <div class="card overflow-hidden animate-on-scroll stagger-3">
-                    <img src="https://placehold.co/600x400/34d399/ffffff?text=Cloud+Audit" alt="Secure Cloud Configuration Audit Project" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Secure Cloud Configuration Audit</h3>
-                    <p class="text-gray-600 mb-5">Developed a script-based solution to audit AWS and Azure cloud environments for misconfigurations against CIS benchmarks. Provided automated remediation suggestions, enhancing cloud security posture.</p>
+                    <img src="https://placehold.co/600x400/3b82f6/ffffff?text=Cloud+Audit" alt="Secure Cloud Configuration Audit Project" class="w-full h-52 object-cover rounded-t-lg mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900 font-poppins">Secure Cloud Configuration Audit</h3>
+                    <p class="text-light-text mb-5">Developed a script-based solution to audit AWS and Azure cloud environments for misconfigurations against CIS benchmarks. Provided automated remediation suggestions, enhancing cloud security posture.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
                         <span class="bg-teal-100 text-teal-800 text-xs font-medium px-3 py-1 rounded-full">Cloud Security</span>
                         <span class="bg-orange-100 text-orange-800 text-xs font-medium px-3 py-1 rounded-full">AWS</span>
@@ -756,37 +683,37 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-100">
+    <section id="contact" class="py-20 bg-light-gray-bg">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">Get In Touch</h2>
             <div class="max-w-3xl mx-auto card p-10 animate-on-scroll">
-                <p class="text-xl text-gray-700 text-center mb-8">
+                <p class="text-xl text-dark-gray text-center mb-8">
                     Have a security challenge, a project idea, or just want to connect? Feel free to reach out!
                 </p>
                 <form action="#" method="POST" class="space-y-6">
                     <div>
-                        <label for="name" class="block text-lg font-medium text-gray-700 mb-1">Name</label>
-                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="Your Name" required>
+                        <label for="name" class="block text-lg font-medium text-dark-gray mb-1">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary-blue focus:ring-primary-blue p-3 border text-lg" placeholder="Your Name" required>
                     </div>
                     <div>
-                        <label for="email" class="block text-lg font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="you@example.com" required>
+                        <label for="email" class="block text-lg font-medium text-dark-gray mb-1">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary-blue focus:ring-primary-blue p-3 border text-lg" placeholder="you@example.com" required>
                     </div>
                     <div>
-                        <label for="message" class="block text-lg font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="message" name="message" rows="6" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="Your message..." required></textarea>
+                        <label for="message" class="block text-lg font-medium text-dark-gray mb-1">Message</label>
+                        <textarea id="message" name="message" rows="6" class="mt-1 block w-full rounded-lg border-gray-300 bg-white text-gray-900 shadow-sm focus:border-primary-blue focus:ring-primary-blue p-3 border text-lg" placeholder="Your message..." required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn-primary text-xl">Send Message</button>
                     </div>
                 </form>
-                <div class="mt-10 text-center text-gray-600">
+                <div class="mt-10 text-center text-dark-gray">
                     <p class="text-lg mb-4">Or connect with me on:</p>
                     <div class="flex justify-center space-x-8 mt-4">
-                        <a href="https://linkedin.com/in/akhil-sabu" target="_blank" class="text-gray-700 hover:text-blue-600 text-4xl social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/yourprofile" target="_blank" class="text-gray-700 hover:text-gray-900 text-4xl social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="mailto:mailmeakhil13@gmail.com" class="text-gray-700 hover:text-red-600 text-4xl social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                        <a href="https://medium.com/@itsmeakhil" target="_blank" class="text-gray-700 hover:text-gray-900 text-4xl social-icon" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                        <a href="https://www.linkedin.com/in/akhil-sabu/" target="_blank" class="text-gray-700 hover:text-primary-blue text-4xl social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/yourprofile" target="_blank" class="text-gray-700 hover:text-accent-green text-4xl social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:mailmeakhil13@gmail.com" class="text-gray-700 hover:text-primary-blue text-4xl social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://medium.com/@itsmeakhil" target="_blank" class="text-gray-700 hover:text-accent-green text-4xl social-icon" aria-label="Medium"><i class="fab fa-medium"></i></a>
                         <!-- Added Phone and Location -->
                         <span class="text-gray-700 text-4xl social-icon" title="Phone: +918129006470"><i class="fas fa-phone"></i></span>
                         <span class="text-gray-700 text-4xl social-icon" title="Location: Kerala, India"><i class="fas fa-map-marker-alt"></i></span>
@@ -797,10 +724,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-10 text-center">
+    <footer class="bg-gray-800 text-white py-10 text-center">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-lg">&copy; 2025 Akhil Sabu. All rights reserved.</p>
-            <p class="text-base mt-3">Built with ❤️ and Tailwind CSS</p>
+            <p class="text-lg font-poppins">&copy; 2025 Akhil Sabu. All rights reserved.</p>
+            <p class="text-base mt-3 font-poppins">Designed with &#x2764;&#xfe0f; and Tailwind CSS</p>
         </div>
     </footer>
 
@@ -830,7 +757,6 @@
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
-            // Removed hamburger icon animation toggle as it's not in this version's HTML
         }
 
         document.querySelector('button[aria-label="Toggle navigation"]').addEventListener('click', toggleMobileMenu);
@@ -854,8 +780,8 @@
                     }
                 });
             }, {
-                threshold: 0.1, // Trigger when 10% of the element is visible
-                rootMargin: "0px 0px -70px 0px" // Adjust to trigger slightly before it's fully in view
+                threshold: 0.1,
+                rootMargin: "0px 0px -70px 0px"
             });
 
             animateElements.forEach(element => {
@@ -867,11 +793,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        titleObserver.unobserve(entry.target); // Animate once
+                        titleObserver.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.5 // Trigger when 50% of the title is visible
+                threshold: 0.5
             });
 
             sectionTitles.forEach(title => {
@@ -880,7 +806,7 @@
 
             // Back to Top button visibility and Header scroll effect
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 400) { // Show button after scrolling 400px
+                if (window.scrollY > 400) {
                     backToTopButton.classList.add('show');
                     header.classList.add('header-scrolled');
                 } else {
@@ -897,12 +823,8 @@
                 });
             });
 
-            // Mouse-over background effect
-            document.body.addEventListener('mousemove', (e) => {
-                const x = (e.clientX / window.innerWidth) * 100;
-                const y = (e.clientY / window.innerHeight) * 100;
-                document.body.style.backgroundPosition = `${x}% ${y}%`;
-            });
+            // Typing effect for hero tagline (removed for this theme as it doesn't fit the aesthetic)
+            // The previous typing effect script has been removed to align with the new theme's aesthetic.
         });
     </script>
 </body>
