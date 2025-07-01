@@ -23,6 +23,7 @@
                               radial-gradient(circle at bottom right, #e0f2fe, transparent 50%);
             background-size: 200% 200%;
             animation: background-pan 20s linear infinite alternate;
+            transition: background-position 0.5s ease-out; /* For mouse-over background effect */
         }
         body.loaded {
             opacity: 1;
@@ -102,6 +103,10 @@
         .card > *:not(.card::before) {
             position: relative;
             z-index: 1;
+            transition: transform 0.2s ease-out; /* Added for content lift */
+        }
+        .card:hover > *:not(.card::before) {
+            transform: translateY(-2px); /* Lift content slightly */
         }
 
         .btn-primary {
@@ -119,7 +124,7 @@
         .btn-primary:hover {
             background-color: #2563eb; /* Darker blue on hover */
             transform: translateY(-3px); /* Slight lift */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 0 25px rgba(59, 130, 246, 0.6); /* Enhanced shadow + glow */
         }
         .btn-primary::after {
             content: '';
@@ -142,9 +147,10 @@
         }
 
         .nav-link {
-            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out, padding 0.2s ease-in-out;
             font-weight: 500;
             position: relative;
+            padding: 0.5rem 0.75rem; /* Added padding */
         }
         .nav-link::after {
             content: '';
@@ -154,7 +160,7 @@
             width: 0;
             height: 2px;
             background-color: #3b82f6;
-            transition: width 0.3s ease-in-out;
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1); /* More dynamic transition */
         }
         .nav-link:hover {
             color: #3b82f6; /* Blue on hover */
@@ -168,7 +174,12 @@
         /* Header backdrop filter for blur */
         header {
             backdrop-filter: blur(8px); /* Apply blur effect */
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .header-scrolled {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Add shadow when scrolled */
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque when scrolled */
         }
 
         /* Hero Section Background Animation */
@@ -278,6 +289,20 @@
         .animate-on-scroll.stagger-6 { transition-delay: 0.6s; }
         .animate-on-scroll.stagger-7 { transition-delay: 0.7s; }
         .animate-on-scroll.stagger-8 { transition-delay: 0.8s; }
+        .animate-on-scroll.stagger-9 { transition-delay: 0.9s; }
+        .animate-on-scroll.stagger-10 { transition-delay: 1.0s; }
+        .animate-on-scroll.stagger-11 { transition-delay: 1.1s; }
+        .animate-on-scroll.stagger-12 { transition-delay: 1.2s; }
+        .animate-on-scroll.stagger-13 { transition-delay: 1.3s; }
+        .animate-on-scroll.stagger-14 { transition-delay: 1.4s; }
+        .animate-on-scroll.stagger-15 { transition-delay: 1.5s; }
+        .animate-on-scroll.stagger-16 { transition-delay: 1.6s; }
+        .animate-on-scroll.stagger-17 { transition-delay: 1.7s; }
+        .animate-on-scroll.stagger-18 { transition-delay: 1.8s; }
+        .animate-on-scroll.stagger-19 { transition-delay: 1.9s; }
+        .animate-on-scroll.stagger-20 { transition-delay: 2.0s; }
+        .animate-on-scroll.stagger-21 { transition-delay: 2.1s; }
+
 
         /* Image Hover Effect */
         .project-image, .profile-image {
@@ -341,113 +366,184 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Hamburger Icon Animation */
+        .hamburger-icon span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #334155;
+            margin: 5px 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-icon.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-icon.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
     </style>
 </head>
 <body class="antialiased">
     <!-- Header/Navigation -->
-    <header class="bg-white shadow-lg py-5 fixed top-0 left-0 right-0 z-50">
+    <header class="bg-white shadow-sm py-4 fixed top-0 left-0 right-0 z-50">
         <nav class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
-            <div class="text-3xl font-extrabold text-gray-900 tracking-wide">Your Name</div>
-            <ul class="hidden md:flex space-x-10">
-                <li><a href="#about" class="nav-link text-gray-700 hover:text-gray-900">About</a></li>
-                <li><a href="#skills" class="nav-link text-gray-700 hover:text-gray-900">Skills</a></li>
-                <li><a href="#certifications" class="nav-link text-gray-700 hover:text-gray-900">Certifications</a></li>
-                <li><a href="#projects" class="nav-link text-gray-700 hover:text-gray-900">Projects</a></li>
-                <li><a href="#contact" class="nav-link text-gray-700 hover:text-gray-900">Contact</a></li>
+            <div class="text-2xl font-bold text-gray-900">Akhil Sabu</div>
+            <ul class="hidden md:flex space-x-8">
+                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900">About</a></li>
+                <li><a href="#experience" class="nav-link text-gray-600 hover:text-gray-900">Experience</a></li>
+                <li><a href="#skills" class="nav-link text-gray-600 hover:text-gray-900">Skills</a></li>
+                <li><a href="#certifications" class="nav-link text-gray-600 hover:text-gray-900">Certifications</a></li>
+                <li><a href="#achievements" class="nav-link text-gray-600 hover:text-gray-900">Achievements</a></li>
+                <li><a href="#projects" class="nav-link text-gray-600 hover:text-gray-900">Projects</a></li>
+                <li><a href="#contact" class="nav-link text-gray-600 hover:text-gray-900">Contact</a></li>
             </ul>
             <!-- Mobile Menu Button (Hamburger) -->
-            <button class="md:hidden text-gray-700 focus:outline-none" aria-label="Toggle navigation">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button class="md:hidden text-gray-600 focus:outline-none" aria-label="Toggle navigation">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
         </nav>
         <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white py-3 shadow-md">
-            <ul class="flex flex-col items-center space-y-5">
-                <li><a href="#about" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">About</a></li>
-                <li><a href="#skills" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Skills</a></li>
-                <li><a href="#certifications" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Certifications</a></li>
-                <li><a href="#projects" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Projects</a></li>
-                <li><a href="#contact" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Contact</a></li>
+        <div id="mobile-menu" class="md:hidden hidden bg-white py-2 shadow-md">
+            <ul class="flex flex-col items-center space-y-4">
+                <li><a href="#about" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">About</a></li>
+                <li><a href="#experience" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Experience</a></li>
+                <li><a href="#skills" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Skills</a></li>
+                <li><a href="#certifications" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Certifications</a></li>
+                <li><a href="#achievements" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Achievements</a></li>
+                <li><a href="#projects" class="nav-link text-gray-600 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative h-screen flex items-center justify-center text-center text-white pt-20">
-        <div class="scanline-effect"></div> <!-- New scanline effect -->
+    <section id="hero" class="relative h-screen flex items-center justify-center text-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white pt-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5 animate-fade-in-down">
-                Hi, I'm <span class="text-yellow-300">Your Name</span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+                Hi, I'm <span class="text-yellow-300">Akhil Sabu</span>
             </h1>
-            <p class="text-xl sm:text-2xl lg:text-3xl mb-10 typing-effect">
+            <p class="text-lg sm:text-xl lg:text-2xl mb-8 animate-fade-in-up">
                 A dedicated Cybersecurity Professional safeguarding digital assets.
             </p>
-            <a href="#projects" class="btn-primary inline-block text-xl animate-scale-in">View My Security Work</a>
+            <a href="#projects" class="btn-primary inline-block text-lg animate-scale-in">View My Security Work</a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-gray-100">
+    <section id="about" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">About Me</h2>
-            <div class="flex flex-col md:flex-row items-center md:space-x-10 animate-on-scroll">
-                <div class="md:w-1/3 mb-10 md:mb-0">
-                    <img src="https://placehold.co/450x450/3b82f6/ffffff?text=Your+Photo" alt="Your Photo" class="rounded-full w-56 h-56 mx-auto object-cover border-5 border-blue-400 shadow-xl profile-image">
+            <div class="flex flex-col md:flex-row items-center md:space-x-8 animate-on-scroll">
+                <div class="md:w-1/3 mb-8 md:mb-0">
+                    <img src="https://placehold.co/400x400/3b82f6/ffffff?text=Akhil+Sabu" alt="Akhil Sabu Photo" class="rounded-full w-48 h-48 mx-auto object-cover border-4 border-blue-300 shadow-lg profile-image">
                 </div>
-                <div class="md:w-2/3 text-xl leading-relaxed text-gray-700">
-                    <p class="mb-6">
-                        Hello! I'm [Your Name], a passionate Cybersecurity Professional with a focus on [Your Specialization, e.g., penetration testing, incident response, security architecture]. I am committed to protecting digital infrastructures, identifying vulnerabilities, and implementing robust security measures to mitigate risks. My expertise spans across various security domains, ensuring comprehensive defense strategies.
+                <div class="md:w-2/3 text-lg leading-relaxed text-gray-700">
+                    <p class="mb-4">
+                        Hello! I'm Akhil Sabu, a passionate Cybersecurity Professional with a focus on **Vulnerability Management, Penetration Testing, and Security Operations (SecOps)**. I am committed to protecting digital infrastructures, identifying vulnerabilities, and implementing robust security measures to mitigate risks. My expertise spans across various security domains, ensuring comprehensive defense strategies.
                     </p>
                     <p>
-                        My journey in cybersecurity began [Number] years ago, driven by a fascination with digital threats and a desire to build secure systems. I've had the privilege of working on diverse projects, from [Type of Project 1, e.g., conducting comprehensive security audits for financial institutions] to [Type of Project 2, e.g., developing secure coding guidelines for large-scale web applications]. I continuously stay updated with the latest threat landscapes, emerging attack vectors, and cutting-edge security technologies. When I'm not defending networks, you can find me [Your Hobby, e.g., researching new exploits, participating in CTFs, contributing to open-source security projects, or reading cybersecurity blogs].
+                        My journey in cybersecurity began 6 years ago, driven by a fascination with digital threats and a desire to build secure systems. I've had the privilege of working on diverse projects, from **conducting comprehensive security audits and penetration tests for web applications and networks** to **developing and implementing security monitoring solutions**. I continuously stay updated with the latest threat landscapes, emerging attack vectors, and cutting-edge security technologies. When I'm not defending networks, you can find me **researching new exploits, participating in CTFs (Capture The Flag competitions), or contributing to open-source security projects.**
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-white">
+    <!-- Work Experience Section -->
+    <section id="experience" class="py-16 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-title text-center mx-auto animate-on-scroll">My Cybersecurity Skills</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">Work Experience</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Experience Card 1: Ontinue India Private Limited -->
+                <div class="card animate-on-scroll stagger-1">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Cyber Security Engineer (Team Lead)</h3>
+                    <p class="text-xl font-semibold text-gray-700 mb-2">Ontinue India Private Limited</p>
+                    <p class="text-gray-600 mb-4">06/2021 - Present, New Delhi</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Lead the end-to-end vulnerability management process, encompassing the provision of vulnerability scanners, agent provision, and maintenance.</li>
+                        <li>Conducted regular vulnerability assessments using Qualys, Defender for Endpoint identifying and prioritizing vulnerabilities based on risk and impact.</li>
+                        <li>Developed and enforced vulnerability and patch management policies and procedures, ensuring alignment with industry standards and regulatory requirements.</li>
+                        <li>Managed patch deployment processes, including scheduling, testing, and applying patches to address vulnerabilities and ensure system security.</li>
+                    </ul>
+                </div>
+                <!-- Experience Card 2: Accubits Technologies Private Ltd -->
+                <div class="card animate-on-scroll stagger-2">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Cyber Security Analyst</h3>
+                    <p class="text-xl font-semibold text-gray-700 mb-2">Accubits Technologies Private Ltd</p>
+                    <p class="text-gray-600 mb-4">06/2020 - 06/2021, Trivandrum, Kerala</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Performed comprehensive security assessments, identifying and addressing vulnerabilities to enhance organizational security.</li>
+                        <li>Work closely with the IT and security teams to ensure timely and effective remediation of identified vulnerabilities.</li>
+                        <li>Designed and implemented security architecture for identity and access management solutions, addressing security gaps and enhancing system security.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">My Technical Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Skill Card 1 -->
                 <div class="card text-center animate-on-scroll stagger-1">
-                    <div class="skill-icon mx-auto"><i class="fas fa-shield-alt"></i></div> <!-- Shield icon -->
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Network Security</h3>
-                    <p class="text-gray-600">Firewalls, IDS/IPS, VPNs, Network Segmentation, Protocol Analysis, SIEM</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Vulnerability Assessment & Penetration Testing</h3>
+                    <p class="text-gray-600">Identifying and exploiting security weaknesses in systems and applications.</p>
                 </div>
                 <!-- Skill Card 2 -->
                 <div class="card text-center animate-on-scroll stagger-2">
-                    <div class="skill-icon mx-auto"><i class="fas fa-exclamation-triangle"></i></div> <!-- Warning icon -->
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Incident Response</h3>
-                    <p class="text-gray-600">Threat Detection, Forensics, Malware Analysis, Recovery Planning, SOAR</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Cloud Security</h3>
+                    <p class="text-gray-600">Securing cloud environments and infrastructure.</p>
                 </div>
                 <!-- Skill Card 3 -->
                 <div class="card text-center animate-on-scroll stagger-3">
-                    <div class="skill-icon mx-auto"><i class="fas fa-lock"></i></div> <!-- Lock icon -->
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Application Security</h3>
-                    <p class="text-gray-600">Secure SDLC, SAST/DAST, OWASP Top 10, API Security, Container Security</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-globe"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Web Application Security</h3>
+                    <p class="text-gray-600">Protecting web applications from common vulnerabilities (OWASP Top 10).</p>
                 </div>
                 <!-- Skill Card 4 -->
                 <div class="card text-center animate-on-scroll stagger-4">
-                    <div class="skill-icon mx-auto"><i class="fas fa-search"></i></div> <!-- Search icon -->
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Vulnerability Management</h3>
-                    <p class="text-gray-600">Penetration Testing, Vulnerability Scanning, Risk Assessment, Red Teaming</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-lightbulb"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">IoT Security</h3>
+                    <p class="text-gray-600">Securing Internet of Things devices and ecosystems.</p>
                 </div>
                 <!-- Skill Card 5 -->
                 <div class="card text-center animate-on-scroll stagger-5">
-                    <div class="skill-icon mx-auto"><i class="fas fa-gavel"></i></div> <!-- Gavel icon -->
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Compliance & Governance</h3>
-                    <p class="text-gray-600">GDPR, HIPAA, ISO 27001, NIST, Security Policies, Audit Preparation</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-bug"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Bug Hunting</h3>
+                    <p class="text-gray-600">Discovering and reporting vulnerabilities in software and systems.</p>
                 </div>
                 <!-- Skill Card 6 -->
                 <div class="card text-center animate-on-scroll stagger-6">
-                    <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div> <!-- Cloud icon -->
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Cloud Security</h3>
-                    <p class="text-gray-600">AWS Security, Azure Security, GCP Security, Cloud Access Security Brokers (CASB)</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Network Security</h3>
+                    <p class="text-gray-600">Designing and implementing secure network architectures.</p>
+                </div>
+                <!-- Skill Card 7 -->
+                <div class="card text-center animate-on-scroll stagger-7">
+                    <div class="skill-icon mx-auto"><i class="fas fa-mask"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Red Teaming</h3>
+                    <p class="text-gray-600">Simulating real-world attacks to test organizational defenses.</p>
+                </div>
+                <!-- Skill Card 8 -->
+                <div class="card text-center animate-on-scroll stagger-8">
+                    <div class="skill-icon mx-auto"><i class="fas fa-clipboard-list"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Vulnerability Management</h3>
+                    <p class="text-gray-600">Systematic process of identifying, assessing, and remediating vulnerabilities.</p>
+                </div>
+                <!-- Skill Card 9 -->
+                <div class="card text-center animate-on-scroll stagger-9">
+                    <div class="skill-icon mx-auto"><i class="fas fa-desktop"></i></div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Endpoint Security</h3>
+                    <p class="text-gray-600">Protecting end-user devices from cyber threats.</p>
                 </div>
             </div>
         </div>
@@ -457,73 +553,170 @@
     <section id="certifications" class="py-20 bg-gray-100">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">Certifications</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 <!-- Certification Card 1 -->
                 <div class="card text-center animate-on-scroll stagger-1">
-                    <div class="skill-icon mx-auto"><i class="fas fa-certificate"></i></div>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">CompTIA Security+</h3>
-                    <p class="text-gray-600">Demonstrates foundational cybersecurity skills for a broad range of security roles.</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Azure Network Security</h3>
+                    <p class="text-gray-600">Microsoft</p>
                 </div>
                 <!-- Certification Card 2 -->
                 <div class="card text-center animate-on-scroll stagger-2">
-                    <div class="skill-icon mx-auto"><i class="fas fa-user-shield"></i></div>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Certified Ethical Hacker (CEH)</h3>
-                    <p class="text-gray-600">Expertise in ethical hacking techniques and tools for penetration testing.</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Microsoft Defender XDR</h3>
+                    <p class="text-gray-600">Microsoft</p>
                 </div>
                 <!-- Certification Card 3 -->
                 <div class="card text-center animate-on-scroll stagger-3">
-                    <div class="skill-icon mx-auto"><i class="fas fa-fingerprint"></i></div>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Certified Information Systems Security Professional (CISSP)</h3>
-                    <p class="text-gray-600">Advanced knowledge in information security governance and management.</p>
+                    <div class="skill-icon mx-auto"><i class="fas fa-robot"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Microsoft Copilot for Security</h3>
+                    <p class="text-gray-600">Microsoft</p>
                 </div>
                 <!-- Certification Card 4 -->
                 <div class="card text-center animate-on-scroll stagger-4">
-                    <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
+                    <div class="skill-icon mx-auto"><i class="fas fa-desktop"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Microsoft Defender for Endpoint</h3>
+                    <p class="text-gray-600">Microsoft</p>
+                </div>
+                <!-- Certification Card 5 -->
+                <div class="card text-center animate-on-scroll stagger-5">
+                    <div class="skill-icon mx-auto"><i class="fas fa-bug"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Microsoft Defender for Vulnerability Management</h3>
+                    <p class="text-gray-600">Microsoft</p>
+                </div>
+                <!-- Certification Card 6 -->
+                <div class="card text-center animate-on-scroll stagger-6">
+                    <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Azure Fundamentals</h3>
+                    <p class="text-gray-600">Microsoft</p>
+                </div>
+                <!-- Certification Card 7 -->
+                <div class="card text-center animate-on-scroll stagger-7">
+                    <div class="skill-icon mx-auto"><i class="fas fa-code"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">API Security Fundamentals</h3>
+                    <p class="text-gray-600">SANS Institute</p>
+                </div>
+                <!-- Certification Card 8 -->
+                <div class="card text-center animate-on-scroll stagger-8">
+                    <div class="skill-icon mx-auto"><i class="fas fa-search"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Vulnerability Management Detection and Response (VMDR)</h3>
+                    <p class="text-gray-600">Qualys</p>
+                </div>
+                <!-- Certification Card 9 -->
+                <div class="card text-center animate-on-scroll stagger-9">
+                    <div class="skill-icon mx-auto"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">eLearnSecurity Mobile Application Pen Tester (MAPT)</h3>
+                    <p class="text-gray-600">eLearnSecurity (INE)</p>
+                </div>
+                <!-- Certification Card 10 -->
+                <div class="card text-center animate-on-scroll stagger-10">
+                    <div class="skill-icon mx-auto"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">eLearnSecurity Junior Penetration Tester (JPT)</h3>
+                    <p class="text-gray-600">eLearnSecurity (INE)</p>
+                </div>
+                <!-- Certification Card 11 -->
+                <div class="card text-center animate-on-scroll stagger-11">
+                    <div class="skill-icon mx-auto"><i class="fas fa-user-secret"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Certified Red Team Professional (CRTP)</h3>
+                    <p class="text-gray-600">AlterNet</p>
+                </div>
+                <!-- Certification Card 12 -->
+                <div class="card text-center animate-on-scroll stagger-12">
+                    <div class="skill-icon mx-auto"><i class="fas fa-skull-crossbones"></i></div>
                     <h3 class="text-2xl font-semibold mb-3 text-gray-800">Offensive Security Certified Professional (OSCP)</h3>
-                    <p class="text-gray-600">Hands-on penetration testing skills, highly valued in offensive security.</p>
+                    <p class="text-gray-600">Offensive Security</p>
+                </div>
+                <!-- Certification Card 13 -->
+                <div class="card text-center animate-on-scroll stagger-13">
+                    <div class="skill-icon mx-auto"><i class="fas fa-user-shield"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Certified Ethical Hacker (CEH)</h3>
+                    <p class="text-gray-600">EC-Council</p>
+                </div>
+                <!-- Certification Card 14 -->
+                <div class="card text-center animate-on-scroll stagger-14">
+                    <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Cisco Certified Network Associate (CCNA)</h3>
+                    <p class="text-gray-600">Cisco</p>
+                </div>
+                <!-- Certification Card 15 -->
+                <div class="card text-center animate-on-scroll stagger-15">
+                    <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Amazon Web Services Cloud Practitioner</h3>
+                    <p class="text-gray-600">Amazon Web Services</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">Achievements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Achievement Card 1: Google Hall of Fame -->
+                <div class="card text-center animate-on-scroll stagger-1">
+                    <div class="skill-icon mx-auto"><i class="fab fa-google"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Google Hall of Fame</h3>
+                    <p class="text-gray-600 mb-4">Recognized for contributions to Google's security.</p>
+                    <a href="https://bughunter.withgoogle.com/profile/e099104e-982c-4938-8961-7a3e400419c2" target="_blank" class="btn-primary text-base inline-block">View Profile</a>
+                </div>
+                <!-- Achievement Card 2: Secured 50+ Companies -->
+                <div class="card text-center animate-on-scroll stagger-2">
+                    <div class="skill-icon mx-auto"><i class="fas fa-building"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Secured 50+ Companies</h3>
+                    <p class="text-gray-600">Successfully identified and mitigated security vulnerabilities for over 50 companies, significantly enhancing their digital defenses.</p>
+                </div>
+                <!-- Achievement Card 3: 30+ Hall of Fame Listings -->
+                <div class="card text-center animate-on-scroll stagger-3">
+                    <div class="skill-icon mx-auto"><i class="fas fa-award"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">30+ Hall of Fame Listings</h3>
+                    <p class="text-gray-600">Listed on 30+ Hall of Fame pages for various companies, acknowledging contributions in reporting security vulnerabilities.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-white">
+    <section id="projects" class="py-20 bg-gray-100">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="section-title text-center mx-auto animate-on-scroll">My Security Projects</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <!-- Project Card 1 -->
+                <!-- Project Card 1: Automated Vulnerability Scanner -->
                 <div class="card overflow-hidden animate-on-scroll stagger-1">
-                    <img src="https://placehold.co/600x400/a78bfa/ffffff?text=Security+Project+1" alt="Security Project 1" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Automated Vulnerability Scanner</h3>
-                    <p class="text-gray-600 mb-5">Developed a Python-based tool to automate common web application vulnerability scans, identifying XSS, SQLi, and misconfigurations, significantly reducing manual effort.</p>
+                    <img src="https://placehold.co/600x400/a78bfa/ffffff?text=Vuln+Scanner" alt="Automated Vulnerability Scanner Project" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Automated Web Vulnerability Scanner</h3>
+                    <p class="text-gray-600 mb-5">Developed a Python-based tool to automate common web application vulnerability scans (XSS, SQLi, CSRF). Integrated with a reporting module to generate actionable security reports, significantly reducing manual analysis time.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Python</span>
                         <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Web Security</span>
                         <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">Automation</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">OWASP</span>
                     </div>
                     <a href="#" class="btn-primary text-base inline-block">View Case Study</a>
                 </div>
-                <!-- Project Card 2 -->
+                <!-- Project Card 2: SIEM Log Analysis Dashboard -->
                 <div class="card overflow-hidden animate-on-scroll stagger-2">
-                    <img src="https://placehold.co/600x400/60a5fa/ffffff?text=Security+Project+2" alt="Security Project 2" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Incident Response Playbook Development</h3>
-                    <p class="text-gray-600 mb-5">Designed and implemented comprehensive incident response playbooks for common cyber threats (e.g., ransomware, phishing), improving response times by 30% and minimizing breach impact.</p>
+                    <img src="https://placehold.co/600x400/60a5fa/ffffff?text=SIEM+Dashboard" alt="SIEM Log Analysis Dashboard Project" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">SIEM Log Analysis Dashboard</h3>
+                    <p class="text-gray-600 mb-5">Designed and implemented an interactive dashboard using Splunk to visualize security logs and identify anomalous activities. Enabled real-time threat detection and improved incident response efficiency.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
-                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">IR Planning</span>
-                        <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Documentation</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-3 py-1 rounded-full">Risk Management</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">Splunk</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">SecOps</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-3 py-1 rounded-full">Data Visualization</span>
+                        <span class="bg-orange-100 text-orange-800 text-xs font-medium px-3 py-1 rounded-full">Incident Detection</span>
                     </div>
                     <a href="#" class="btn-primary text-base inline-block">Learn More</a>
                 </div>
-                <!-- Project Card 3 -->
+                <!-- Project Card 3: Secure Cloud Configuration Audit Tool -->
                 <div class="card overflow-hidden animate-on-scroll stagger-3">
-                    <img src="https://placehold.co/600x400/34d399/ffffff?text=Security+Project+3" alt="Security Project 3" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Cloud Security Hardening Project</h3>
-                    <p class="text-gray-600 mb-5">Led a project to secure cloud infrastructure (AWS/Azure), implementing least privilege access, robust encryption, and continuous monitoring, achieving significant compliance improvements.</p>
+                    <img src="https://placehold.co/600x400/34d399/ffffff?text=Cloud+Audit" alt="Secure Cloud Configuration Audit Project" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Secure Cloud Configuration Audit</h3>
+                    <p class="text-gray-600 mb-5">Developed a script-based solution to audit AWS and Azure cloud environments for misconfigurations against CIS benchmarks. Provided automated remediation suggestions, enhancing cloud security posture.</p>
                     <div class="flex flex-wrap gap-2 mb-5">
                         <span class="bg-teal-100 text-teal-800 text-xs font-medium px-3 py-1 rounded-full">Cloud Security</span>
                         <span class="bg-orange-100 text-orange-800 text-xs font-medium px-3 py-1 rounded-full">AWS</span>
                         <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-3 py-1 rounded-full">Azure</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Compliance</span>
                     </div>
                     <a href="#" class="btn-primary text-base inline-block">View Details</a>
                 </div>
@@ -546,7 +739,7 @@
                     </div>
                     <div>
                         <label for="email" class="block text-lg font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="you@example.com" required>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" value="mailmeakhil13@gmail.com" required>
                     </div>
                     <div>
                         <label for="message" class="block text-lg font-medium text-gray-700 mb-1">Message</label>
@@ -559,10 +752,13 @@
                 <div class="mt-10 text-center text-gray-600">
                     <p class="text-lg mb-4">Or connect with me on:</p>
                     <div class="flex justify-center space-x-8 mt-4">
-                        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-gray-700 hover:text-blue-600 text-4xl social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://linkedin.com/in/akhil-sabu" target="_blank" class="text-gray-700 hover:text-blue-600 text-4xl social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                         <a href="https://github.com/yourprofile" target="_blank" class="text-gray-700 hover:text-gray-900 text-4xl social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="mailto:your.email@example.com" class="text-gray-700 hover:text-red-600 text-4xl social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                        <a href="https://twitter.com/yourprofile" target="_blank" class="text-gray-700 hover:text-blue-400 text-4xl social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="mailto:mailmeakhil13@gmail.com" class="text-gray-700 hover:text-red-600 text-4xl social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://medium.com/@itsmeakhil" target="_blank" class="text-gray-700 hover:text-gray-900 text-4xl social-icon" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                        <!-- Added Phone and Location -->
+                        <span class="text-gray-700 text-4xl social-icon" title="Phone: +918129006470"><i class="fas fa-phone"></i></span>
+                        <span class="text-gray-700 text-4xl social-icon" title="Location: Kerala, India"><i class="fas fa-map-marker-alt"></i></span>
                     </div>
                 </div>
             </div>
@@ -572,7 +768,7 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-10 text-center">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-lg">&copy; 2025 Your Name. All rights reserved.</p>
+            <p class="text-lg">&copy; 2025 Akhil Sabu. All rights reserved.</p>
             <p class="text-base mt-3">Built with ❤️ and Tailwind CSS</p>
         </div>
     </footer>
@@ -603,6 +799,7 @@
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
+            // Removed hamburger icon animation toggle as it's not in this version's HTML
         }
 
         document.querySelector('button[aria-label="Toggle navigation"]').addEventListener('click', toggleMobileMenu);
@@ -612,6 +809,7 @@
             const animateElements = document.querySelectorAll('.animate-on-scroll');
             const sectionTitles = document.querySelectorAll('.section-title');
             const backToTopButton = document.getElementById('back-to-top');
+            const header = document.querySelector('header');
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -646,15 +844,17 @@
             });
 
             sectionTitles.forEach(title => {
-                titleObserver.observe(title);
+                    titleObserver.observe(title);
             });
 
-            // Back to Top button visibility
+            // Back to Top button visibility and Header scroll effect
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 400) { // Show button after scrolling 400px
                     backToTopButton.classList.add('show');
+                    header.classList.add('header-scrolled');
                 } else {
                     backToTopButton.classList.remove('show');
+                    header.classList.remove('header-scrolled');
                 }
             });
 
@@ -664,6 +864,13 @@
                     top: 0,
                     behavior: 'smooth'
                 });
+            });
+
+            // Mouse-over background effect
+            document.body.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                document.body.style.backgroundPosition = `${x}% ${y}%`;
             });
         });
     </script>
