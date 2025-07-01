@@ -18,10 +18,20 @@
             overflow-x: hidden; /* Prevent horizontal scroll due to animations */
             opacity: 0; /* Initial opacity for fade-in effect */
             transition: opacity 1s ease-in;
+            /* Animated subtle background gradient */
+            background-image: radial-gradient(circle at top left, #e2e8f0, transparent 50%),
+                              radial-gradient(circle at bottom right, #e0f2fe, transparent 50%);
+            background-size: 200% 200%;
+            animation: background-pan 20s linear infinite alternate;
         }
         body.loaded {
             opacity: 1;
         }
+        @keyframes background-pan {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
         .section-title {
             position: relative;
             display: inline-block;
@@ -31,6 +41,7 @@
             font-weight: 800; /* Extra bold */
             color: #1a202c; /* Very dark slate */
             text-shadow: 3px 3px 6px rgba(0,0,0,0.15); /* More prominent text shadow */
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Added transition for hover */
         }
         .section-title::after {
             content: '';
@@ -48,18 +59,51 @@
         .section-title.is-visible::after {
             transform: scaleX(1); /* Animate to full width */
         }
+        .section-title:hover {
+            transform: translateY(-3px) scale(1.01); /* Subtle lift and scale on hover */
+            color: #2563eb; /* Darker blue on hover */
+        }
+
         .card {
             background-color: #ffffff;
             border-radius: 1.25rem; /* Even more rounded corners */
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 6px 10px -4px rgba(0, 0, 0, 0.08); /* Stronger soft shadow */
             padding: 2.5rem; /* More padding */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
             border: 1px solid #e2e8f0; /* Subtle border */
+            position: relative; /* For pseudo-elements */
+            overflow: hidden; /* For ripple effect */
         }
         .card:hover {
             transform: translateY(-10px); /* More pronounced lift on hover */
             box-shadow: 0 25px 40px -8px rgba(0, 0, 0, 0.2), 0 10px 15px -6px rgba(0, 0, 0, 0.1), 0 0 30px rgba(59, 130, 246, 0.4); /* Stronger shadow + blue glow */
+            border-color: #3b82f6; /* Blue border on hover */
         }
+        /* Card ripple effect */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(59, 130, 246, 0.1); /* Light blue ripple */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: width 0.5s ease-out, height 0.5s ease-out, opacity 0.5s ease-out;
+            z-index: 0;
+        }
+        .card:hover::before {
+            width: 200%; /* Expand ripple */
+            height: 200%;
+            opacity: 1;
+        }
+        .card > *:not(.card::before) {
+            position: relative;
+            z-index: 1;
+        }
+
         .btn-primary {
             background-color: #3b82f6; /* Blue */
             color: #ffffff;
@@ -68,19 +112,63 @@
             transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         .btn-primary:hover {
             background-color: #2563eb; /* Darker blue on hover */
             transform: translateY(-3px); /* Slight lift */
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
         }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3); /* White ripple */
+            border-radius: 50%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease-out;
+            z-index: -1;
+        }
+        .btn-primary:hover::after {
+            width: 200px;
+            height: 200px;
+            opacity: 1;
+        }
+
         .nav-link {
-            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out, text-shadow 0.3s ease-in-out;
             font-weight: 500;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px; /* Position below text */
+            width: 0;
+            height: 2px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease-in-out;
         }
         .nav-link:hover {
             color: #3b82f6; /* Blue on hover */
             transform: translateY(-2px); /* Slight lift */
+            text-shadow: 0 0 5px rgba(59, 130, 246, 0.5); /* Subtle glow */
+        }
+        .nav-link:hover::after {
+            width: 100%; /* Expand underline */
+        }
+
+        /* Header backdrop filter for blur */
+        header {
+            backdrop-filter: blur(8px); /* Apply blur effect */
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
         }
 
         /* Hero Section Background Animation */
@@ -120,6 +208,8 @@
         #hero > div { /* Target content inside hero to be above pseudo-element */
             position: relative;
             z-index: 1;
+            /* Add a subtle shadow to hero content */
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         /* Keyframe Animations for Hero Section Text/Button */
@@ -156,6 +246,7 @@
             letter-spacing: .15em; /* Adjust as needed */
             animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
             width: 0; /* Start with zero width */
+            border-right: .15em solid yellow; /* Initial cursor */
         }
         /* The typing animation */
         @keyframes typing {
@@ -288,9 +379,9 @@
         <div class="scanline-effect"></div> <!-- New scanline effect -->
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5 animate-fade-in-down">
-                Hi, I'm <span class="text-yellow-300">Akhil Sabu</span>
+                Hi, I'm <span class="text-yellow-300">Your Name</span>
             </h1>
-            <p class="text-xl sm:text-2xl lg:text-3xl mb-10 typing-effect border-r-4 border-solid border-yellow-300 pr-1">
+            <p class="text-xl sm:text-2xl lg:text-3xl mb-10 typing-effect">
                 A dedicated Cybersecurity Professional safeguarding digital assets.
             </p>
             <a href="#projects" class="btn-primary inline-block text-xl animate-scale-in">View My Security Work</a>
@@ -307,10 +398,10 @@
                 </div>
                 <div class="md:w-2/3 text-xl leading-relaxed text-gray-700">
                     <p class="mb-6">
-                        Hello! I'm Akhil, a passionate Cybersecurity Professional with a focus on [Your Specialization, e.g., penetration testing, incident response, security architecture]. I am committed to protecting digital infrastructures, identifying vulnerabilities, and implementing robust security measures to mitigate risks. My expertise spans across various security domains, ensuring comprehensive defense strategies.
+                        Hello! I'm [Your Name], a passionate Cybersecurity Professional with a focus on [Your Specialization, e.g., penetration testing, incident response, security architecture]. I am committed to protecting digital infrastructures, identifying vulnerabilities, and implementing robust security measures to mitigate risks. My expertise spans across various security domains, ensuring comprehensive defense strategies.
                     </p>
                     <p>
-                        My journey in cybersecurity began 13 years ago, driven by a fascination with digital threats and a desire to build secure systems. I've had the privilege of working on diverse projects, from [Type of Project 1, e.g., conducting comprehensive security audits for financial institutions] to [Type of Project 2, e.g., developing secure coding guidelines for large-scale web applications]. I continuously stay updated with the latest threat landscapes, emerging attack vectors, and cutting-edge security technologies. When I'm not defending networks, you can find me [Your Hobby, e.g., researching new exploits, participating in CTFs, contributing to open-source security projects, or reading cybersecurity blogs].
+                        My journey in cybersecurity began [Number] years ago, driven by a fascination with digital threats and a desire to build secure systems. I've had the privilege of working on diverse projects, from [Type of Project 1, e.g., conducting comprehensive security audits for financial institutions] to [Type of Project 2, e.g., developing secure coding guidelines for large-scale web applications]. I continuously stay updated with the latest threat landscapes, emerging attack vectors, and cutting-edge security technologies. When I'm not defending networks, you can find me [Your Hobby, e.g., researching new exploits, participating in CTFs, contributing to open-source security projects, or reading cybersecurity blogs].
                     </p>
                 </div>
             </div>
