@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cybersecurity Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons (Social Media, Certifications) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Slightly darker light gray */
+            color: #334155; /* Dark slate */
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            opacity: 0; /* Initial opacity for fade-in effect */
+            transition: opacity 1s ease-in;
+        }
+        body.loaded {
+            opacity: 1;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2.5rem; /* Increased margin */
+            font-size: 2.8rem; /* Slightly larger font for titles */
+            font-weight: 800; /* Extra bold */
+            color: #1a202c; /* Very dark slate */
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.15); /* More prominent text shadow */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60%; /* Wider underline */
+            height: 5px; /* Thicker underline */
+            background-color: #3b82f6; /* Blue accent */
+            border-radius: 9999px; /* Fully rounded */
+            transform: scaleX(0); /* Initial state for animation */
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Smooth animation */
+        }
+        .section-title.is-visible::after {
+            transform: scaleX(1); /* Animate to full width */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.25rem; /* Even more rounded corners */
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 6px 10px -4px rgba(0, 0, 0, 0.08); /* Stronger soft shadow */
+            padding: 2.5rem; /* More padding */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #e2e8f0; /* Subtle border */
+        }
+        .card:hover {
+            transform: translateY(-10px); /* More pronounced lift on hover */
+            box-shadow: 0 25px 40px -8px rgba(0, 0, 0, 0.2), 0 10px 15px -6px rgba(0, 0, 0, 0.1), 0 0 30px rgba(59, 130, 246, 0.4); /* Stronger shadow + blue glow */
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Blue */
+            color: #ffffff;
+            padding: 0.85rem 1.75rem; /* Larger padding */
+            border-radius: 0.85rem; /* Rounded */
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+            transform: translateY(-3px); /* Slight lift */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        }
+        .nav-link {
+            transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #3b82f6; /* Blue on hover */
+            transform: translateY(-2px); /* Slight lift */
+        }
+
+        /* Hero Section Background Animation */
+        #hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #1a202c, #2d3748); /* Darker, more serious gradient */
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%232a303c" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.2; /* Subtle grid overlay */
+            z-index: 0;
+        }
+        .scanline-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%);
+            background-size: 100% 4px;
+            animation: scanline 8s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        #hero > div { /* Target content inside hero to be above pseudo-element */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Keyframe Animations for Hero Section Text/Button */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); } /* More dramatic */
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); } /* More dramatic */
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.7); } /* More dramatic */
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 1.2s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1.4s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+        .animate-scale-in {
+            animation: scaleIn 1.4s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        /* Typing Effect for Tagline */
+        .typing-effect {
+            overflow: hidden; /* Ensures the text is hidden until typed */
+            white-space: nowrap; /* Keeps text on a single line */
+            margin: 0 auto; /* Centers the text */
+            letter-spacing: .15em; /* Adjust as needed */
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            width: 0; /* Start with zero width */
+        }
+        /* The typing animation */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        /* The typewriter cursor effect */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: yellow; } /* Cursor color */
+        }
+
+        /* Scroll Reveal Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(80px); /* Increased translate distance */
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out; /* Slightly longer transition */
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Staggered delays for grid items */
+        .animate-on-scroll.stagger-1 { transition-delay: 0.1s; }
+        .animate-on-scroll.stagger-2 { transition-delay: 0.2s; }
+        .animate-on-scroll.stagger-3 { transition-delay: 0.3s; }
+        .animate-on-scroll.stagger-4 { transition-delay: 0.4s; }
+        .animate-on-scroll.stagger-5 { transition-delay: 0.5s; }
+        .animate-on-scroll.stagger-6 { transition-delay: 0.6s; }
+        .animate-on-scroll.stagger-7 { transition-delay: 0.7s; }
+        .animate-on-scroll.stagger-8 { transition-delay: 0.8s; }
+
+        /* Image Hover Effect */
+        .project-image, .profile-image {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .project-image:hover, .profile-image:hover {
+            transform: scale(1.05); /* More pronounced zoom */
+            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+        }
+
+        /* Skill Card Icon Styling */
+        .skill-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 4.5rem; /* Slightly larger icon */
+            height: 4.5rem;
+            background-color: #dbeafe; /* Lighter blue */
+            border-radius: 50%;
+            margin-bottom: 1.25rem; /* More margin */
+            color: #2563eb; /* Darker blue icon color */
+            font-size: 2.2rem; /* Larger icon font */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Stronger shadow */
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .skill-icon:hover {
+            background-color: #bfdbfe; /* Even lighter blue on hover */
+            transform: rotate(10deg) scale(1.1); /* Rotate and scale on hover */
+        }
+
+        /* Social Icon Hover */
+        .social-icon {
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.2); /* More pronounced lift and scale */
+            color: #3b82f6; /* Change color on hover */
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 2.5rem; /* Slightly higher */
+            right: 2.5rem; /* Slightly more to the right */
+            background-color: #3b82f6;
+            color: white;
+            padding: 1.1rem; /* Larger padding */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem; /* Larger icon */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* Stronger shadow */
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(30px); /* More pronounced initial state */
+            cursor: pointer;
+            z-index: 1000;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-lg py-5 fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
+            <div class="text-3xl font-extrabold text-gray-900 tracking-wide">Your Name</div>
+            <ul class="hidden md:flex space-x-10">
+                <li><a href="#about" class="nav-link text-gray-700 hover:text-gray-900">About</a></li>
+                <li><a href="#skills" class="nav-link text-gray-700 hover:text-gray-900">Skills</a></li>
+                <li><a href="#certifications" class="nav-link text-gray-700 hover:text-gray-900">Certifications</a></li>
+                <li><a href="#projects" class="nav-link text-gray-700 hover:text-gray-900">Projects</a></li>
+                <li><a href="#contact" class="nav-link text-gray-700 hover:text-gray-900">Contact</a></li>
+            </ul>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button class="md:hidden text-gray-700 focus:outline-none" aria-label="Toggle navigation">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white py-3 shadow-md">
+            <ul class="flex flex-col items-center space-y-5">
+                <li><a href="#about" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">About</a></li>
+                <li><a href="#skills" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Skills</a></li>
+                <li><a href="#certifications" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Certifications</a></li>
+                <li><a href="#projects" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Projects</a></li>
+                <li><a href="#contact" class="nav-link text-gray-700 hover:text-gray-900 block py-2" onclick="toggleMobileMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center text-center text-white pt-20">
+        <div class="scanline-effect"></div> <!-- New scanline effect -->
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5 animate-fade-in-down">
+                Hi, I'm <span class="text-yellow-300">Akhil Sabu</span>
+            </h1>
+            <p class="text-xl sm:text-2xl lg:text-3xl mb-10 typing-effect border-r-4 border-solid border-yellow-300 pr-1">
+                A dedicated Cybersecurity Professional safeguarding digital assets.
+            </p>
+            <a href="#projects" class="btn-primary inline-block text-xl animate-scale-in">View My Security Work</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center md:space-x-10 animate-on-scroll">
+                <div class="md:w-1/3 mb-10 md:mb-0">
+                    <img src="https://placehold.co/450x450/3b82f6/ffffff?text=Your+Photo" alt="Your Photo" class="rounded-full w-56 h-56 mx-auto object-cover border-5 border-blue-400 shadow-xl profile-image">
+                </div>
+                <div class="md:w-2/3 text-xl leading-relaxed text-gray-700">
+                    <p class="mb-6">
+                        Hello! I'm Akhil, a passionate Cybersecurity Professional with a focus on [Your Specialization, e.g., penetration testing, incident response, security architecture]. I am committed to protecting digital infrastructures, identifying vulnerabilities, and implementing robust security measures to mitigate risks. My expertise spans across various security domains, ensuring comprehensive defense strategies.
+                    </p>
+                    <p>
+                        My journey in cybersecurity began 13 years ago, driven by a fascination with digital threats and a desire to build secure systems. I've had the privilege of working on diverse projects, from [Type of Project 1, e.g., conducting comprehensive security audits for financial institutions] to [Type of Project 2, e.g., developing secure coding guidelines for large-scale web applications]. I continuously stay updated with the latest threat landscapes, emerging attack vectors, and cutting-edge security technologies. When I'm not defending networks, you can find me [Your Hobby, e.g., researching new exploits, participating in CTFs, contributing to open-source security projects, or reading cybersecurity blogs].
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">My Cybersecurity Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Skill Card 1 -->
+                <div class="card text-center animate-on-scroll stagger-1">
+                    <div class="skill-icon mx-auto"><i class="fas fa-shield-alt"></i></div> <!-- Shield icon -->
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Network Security</h3>
+                    <p class="text-gray-600">Firewalls, IDS/IPS, VPNs, Network Segmentation, Protocol Analysis, SIEM</p>
+                </div>
+                <!-- Skill Card 2 -->
+                <div class="card text-center animate-on-scroll stagger-2">
+                    <div class="skill-icon mx-auto"><i class="fas fa-exclamation-triangle"></i></div> <!-- Warning icon -->
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Incident Response</h3>
+                    <p class="text-gray-600">Threat Detection, Forensics, Malware Analysis, Recovery Planning, SOAR</p>
+                </div>
+                <!-- Skill Card 3 -->
+                <div class="card text-center animate-on-scroll stagger-3">
+                    <div class="skill-icon mx-auto"><i class="fas fa-lock"></i></div> <!-- Lock icon -->
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Application Security</h3>
+                    <p class="text-gray-600">Secure SDLC, SAST/DAST, OWASP Top 10, API Security, Container Security</p>
+                </div>
+                <!-- Skill Card 4 -->
+                <div class="card text-center animate-on-scroll stagger-4">
+                    <div class="skill-icon mx-auto"><i class="fas fa-search"></i></div> <!-- Search icon -->
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Vulnerability Management</h3>
+                    <p class="text-gray-600">Penetration Testing, Vulnerability Scanning, Risk Assessment, Red Teaming</p>
+                </div>
+                <!-- Skill Card 5 -->
+                <div class="card text-center animate-on-scroll stagger-5">
+                    <div class="skill-icon mx-auto"><i class="fas fa-gavel"></i></div> <!-- Gavel icon -->
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Compliance & Governance</h3>
+                    <p class="text-gray-600">GDPR, HIPAA, ISO 27001, NIST, Security Policies, Audit Preparation</p>
+                </div>
+                <!-- Skill Card 6 -->
+                <div class="card text-center animate-on-scroll stagger-6">
+                    <div class="skill-icon mx-auto"><i class="fas fa-cloud"></i></div> <!-- Cloud icon -->
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Cloud Security</h3>
+                    <p class="text-gray-600">AWS Security, Azure Security, GCP Security, Cloud Access Security Brokers (CASB)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section (New) -->
+    <section id="certifications" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Certification Card 1 -->
+                <div class="card text-center animate-on-scroll stagger-1">
+                    <div class="skill-icon mx-auto"><i class="fas fa-certificate"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">CompTIA Security+</h3>
+                    <p class="text-gray-600">Demonstrates foundational cybersecurity skills for a broad range of security roles.</p>
+                </div>
+                <!-- Certification Card 2 -->
+                <div class="card text-center animate-on-scroll stagger-2">
+                    <div class="skill-icon mx-auto"><i class="fas fa-user-shield"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Certified Ethical Hacker (CEH)</h3>
+                    <p class="text-gray-600">Expertise in ethical hacking techniques and tools for penetration testing.</p>
+                </div>
+                <!-- Certification Card 3 -->
+                <div class="card text-center animate-on-scroll stagger-3">
+                    <div class="skill-icon mx-auto"><i class="fas fa-fingerprint"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Certified Information Systems Security Professional (CISSP)</h3>
+                    <p class="text-gray-600">Advanced knowledge in information security governance and management.</p>
+                </div>
+                <!-- Certification Card 4 -->
+                <div class="card text-center animate-on-scroll stagger-4">
+                    <div class="skill-icon mx-auto"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Offensive Security Certified Professional (OSCP)</h3>
+                    <p class="text-gray-600">Hands-on penetration testing skills, highly valued in offensive security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">My Security Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project Card 1 -->
+                <div class="card overflow-hidden animate-on-scroll stagger-1">
+                    <img src="https://placehold.co/600x400/a78bfa/ffffff?text=Security+Project+1" alt="Security Project 1" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Automated Vulnerability Scanner</h3>
+                    <p class="text-gray-600 mb-5">Developed a Python-based tool to automate common web application vulnerability scans, identifying XSS, SQLi, and misconfigurations, significantly reducing manual effort.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Python</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Web Security</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">Automation</span>
+                    </div>
+                    <a href="#" class="btn-primary text-base inline-block">View Case Study</a>
+                </div>
+                <!-- Project Card 2 -->
+                <div class="card overflow-hidden animate-on-scroll stagger-2">
+                    <img src="https://placehold.co/600x400/60a5fa/ffffff?text=Security+Project+2" alt="Security Project 2" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Incident Response Playbook Development</h3>
+                    <p class="text-gray-600 mb-5">Designed and implemented comprehensive incident response playbooks for common cyber threats (e.g., ransomware, phishing), improving response times by 30% and minimizing breach impact.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">IR Planning</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Documentation</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-3 py-1 rounded-full">Risk Management</span>
+                    </div>
+                    <a href="#" class="btn-primary text-base inline-block">Learn More</a>
+                </div>
+                <!-- Project Card 3 -->
+                <div class="card overflow-hidden animate-on-scroll stagger-3">
+                    <img src="https://placehold.co/600x400/34d399/ffffff?text=Security+Project+3" alt="Security Project 3" class="w-full h-52 object-cover rounded-t-xl mb-5 project-image">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Cloud Security Hardening Project</h3>
+                    <p class="text-gray-600 mb-5">Led a project to secure cloud infrastructure (AWS/Azure), implementing least privilege access, robust encryption, and continuous monitoring, achieving significant compliance improvements.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <span class="bg-teal-100 text-teal-800 text-xs font-medium px-3 py-1 rounded-full">Cloud Security</span>
+                        <span class="bg-orange-100 text-orange-800 text-xs font-medium px-3 py-1 rounded-full">AWS</span>
+                        <span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-3 py-1 rounded-full">Azure</span>
+                    </div>
+                    <a href="#" class="btn-primary text-base inline-block">View Details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="section-title text-center mx-auto animate-on-scroll">Get In Touch</h2>
+            <div class="max-w-3xl mx-auto card p-10 animate-on-scroll">
+                <p class="text-xl text-gray-700 text-center mb-8">
+                    Have a security challenge, a project idea, or just want to connect? Feel free to reach out!
+                </p>
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-lg font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="Your Name" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-lg font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="you@example.com" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-lg font-medium text-gray-700 mb-1">Message</label>
+                        <textarea id="message" name="message" rows="6" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 border text-lg" placeholder="Your message..." required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary text-xl">Send Message</button>
+                    </div>
+                </form>
+                <div class="mt-10 text-center text-gray-600">
+                    <p class="text-lg mb-4">Or connect with me on:</p>
+                    <div class="flex justify-center space-x-8 mt-4">
+                        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-gray-700 hover:text-blue-600 text-4xl social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/yourprofile" target="_blank" class="text-gray-700 hover:text-gray-900 text-4xl social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:your.email@example.com" class="text-gray-700 hover:text-red-600 text-4xl social-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://twitter.com/yourprofile" target="_blank" class="text-gray-700 hover:text-blue-400 text-4xl social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10 text-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-lg">&copy; 2025 Your Name. All rights reserved.</p>
+            <p class="text-base mt-3">Built with ❤️ and Tailwind CSS</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Page load fade-in
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        document.querySelector('button[aria-label="Toggle navigation"]').addEventListener('click', toggleMobileMenu);
+
+        // Intersection Observer for scroll-reveal animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            const sectionTitles = document.querySelectorAll('.section-title');
+            const backToTopButton = document.getElementById('back-to-top');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Optionally, stop observing once visible if animation should only play once
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: remove 'is-visible' if you want animations to replay on scroll up
+                        // entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% of the element is visible
+                rootMargin: "0px 0px -70px 0px" // Adjust to trigger slightly before it's fully in view
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Observe section titles for underline animation
+            const titleObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        titleObserver.unobserve(entry.target); // Animate once
+                    }
+                });
+            }, {
+                threshold: 0.5 // Trigger when 50% of the title is visible
+            });
+
+            sectionTitles.forEach(title => {
+                titleObserver.observe(title);
+            });
+
+            // Back to Top button visibility
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) { // Show button after scrolling 400px
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+
+            // Back to Top button click functionality
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
